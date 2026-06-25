@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Tahoma,sans-serif;
+}
+
+body{
+    margin:0;
+    background:#f5f5f5;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+    padding:20px;
+}
+
+.active{
+    display:block;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    max-width:600px;
+    margin:50px auto;
+}
+
+.btn{
+    padding:25px;
+    border:none;
+    border-radius:12px;
+    background:#2191F3;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+.back{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#f44936;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+h1{
+    text-align:center;
+}
+</style>
+</head>
+<body>
+
+<!-- صفحه اصلی -->
+<div id="home" class="page active">
+    <h1>Main Menu</h1>
+
+    <div class="grid">
+        <button class="btn" onclick="showPage(1)">دکمه 1</button>
+        <button class="btn" onclick="showPage(2)">دکمه 2</button>
+        <button class="btn" onclick="showPage(3)">دکمه 3</button>
+
+        <button class="btn" onclick="showPage(4)">دکمه 4</button>
+        <button class="btn" onclick="showPage(5)">دکمه 5</button>
+        <button class="btn" onclick="showPage(6)">دکمه 6</button>
+
+        <button class="btn" onclick="showPage(7)">دکمه 7</button>
+        <button class="btn" onclick="showPage(8)">دکمه 8</button>
+        <button class="btn" onclick="showPage(9)">دکمه 9</button>
+
+        <button class="btn" onclick="showPage(10)">دکمه 10</button>
+        <button class="btn" onclick="showPage(11)">دکمه 11</button>
+        <button class="btn" onclick="showPage(12)">دکمه 12</button>
+    </div>
+</div>
+
+<!-- صفحات -->
+<div id="page1" class="page">
+    <h1>صفحه 1</h1>
+    <input type="number" id="sum1" placeholder="عدد اول">
+    <input type="number" id="sum2" placeholder="عدد دوم">
+    <br><br>
+    <button onclick="doSum()">محاسبه</button>
+    <p id="sumResult"></p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page2" class="page">
+    <h1>صفحه 2</h1>
+    <input type="number" id="mul1" placeholder="عدد اول">
+    <input type="number" id="mul2" placeholder="عدد دوم">
+
+    <br><br>
+
+    <button onclick="doMul()">محاسبه</button>
+
+    <p id="mulResult"></p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page3" class="page">
+    <h1>صفحه 3</h1>
+    <input type="number" id="pow1" placeholder="پایه">
+    <input type="number" id="pow2" placeholder="توان">
+
+    <br><br>
+
+    <button onclick="doPow()">محاسبه</button>
+
+    <p id="powResult"></p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page4" class="page">
+    <h1>صفحه 4</h1>
+    <p>محتوای صفحه 4</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page5" class="page">
+    <h1>صفحه 5</h1>
+    <p>محتوای صفحه 5</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page6" class="page">
+    <h1>صفحه 6</h1>
+    <p>محتوای صفحه 6</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page7" class="page">
+    <h1>صفحه 7</h1>
+    <p>محتوای صفحه 7</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page8" class="page">
+    <h1>صفحه 8</h1>
+    <p>محتوای صفحه 8</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page9" class="page">
+    <h1>صفحه 9</h1>
+    <p>محتوای صفحه 9</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page10" class="page">
+    <h1>صفحه 10</h1>
+    <p>محتوای صفحه 10</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page11" class="page">
+    <h1>صفحه 11</h1>
+    <p>محتوای صفحه 11</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<div id="page12" class="page">
+    <h1>صفحه 12</h1>
+    <p>محتوای صفحه 12</p>
+    <button class="back" onclick="goHome()">بازگشت</button>
+</div>
+
+<script>
+function showPage(pageNumber){
+
+    document.querySelectorAll('.page').forEach(page=>{
+        page.classList.remove('active');
+    });
+
+    document
+        .getElementById('page'+pageNumber)
+        .classList.add('active');
+}
+
+function goHome(){
+
+    document.querySelectorAll('.page').forEach(page=>{
+        page.classList.remove('active');
+    });
+
+    document
+        .getElementById('home')
+        .classList.add('active');
+}
+function doSum(){
+    let a = Number(document.getElementById("sum1").value);
+    let b = Number(document.getElementById("sum2").value);
+
+    document.getElementById("sumResult").innerText =
+        "نتیجه: " + (a + b);
+}
+
+function doMul(){
+    let a = Number(document.getElementById("mul1").value);
+    let b = Number(document.getElementById("mul2").value);
+
+    document.getElementById("mulResult").innerText =
+        "نتیجه: " + (a * b);
+}
+
+function doPow(){
+    let a = Number(document.getElementById("pow1").value);
+    let b = Number(document.getElementById("pow2").value);
+
+    document.getElementById("powResult").innerText =
+        "نتیجه: " + (a ** b);
+}
+</script>
+
+</body>
+</html>
