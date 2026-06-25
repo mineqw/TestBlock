@@ -230,7 +230,32 @@ tr:nth-child(even){
 
 <div id="page6" class="page">
     <h1>صفحه 6</h1>
-    <p>محتوای صفحه 6</p>
+    <h1>رسم نمودار</h1>
+
+<input type="number" id="x1" placeholder="X1" oninput="drawChart()">
+<input type="number" id="y1" placeholder="Y1" oninput="drawChart()"><br><br>
+
+<input type="number" id="x2" placeholder="X2" oninput="drawChart()">
+<input type="number" id="y2" placeholder="Y2" oninput="drawChart()"><br><br>
+
+<input type="number" id="x3" placeholder="X3" oninput="drawChart()">
+<input type="number" id="y3" placeholder="Y3" oninput="drawChart()"><br><br>
+
+<input type="number" id="x4" placeholder="X4" oninput="drawChart()">
+<input type="number" id="y4" placeholder="Y4" oninput="drawChart()"><br><br>
+
+<input type="number" id="x5" placeholder="X5" oninput="drawChart()">
+<input type="number" id="y5" placeholder="Y5" oninput="drawChart()"><br><br>
+
+<input type="number" id="x6" placeholder="X6" oninput="drawChart()">
+<input type="number" id="y6" placeholder="Y6" oninput="drawChart()"><br><br>
+
+<canvas id="chartCanvas" width="700" height="400"
+style="border:1px solid #ccc;background:white;"></canvas>
+
+<br><br>
+
+<button class="back" onclick="goHome()">بازگشت</button>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
 
@@ -374,6 +399,77 @@ function interpolate(){
 
     document.getElementById("interpXResult").innerText =
     "X = " + x3.toFixed(4);
+    }
+    function drawChart(){
+
+    let points = [];
+
+    for(let i=1;i<=6;i++){
+
+        let x = Number(document.getElementById("x"+i).value);
+        let y = Number(document.getElementById("y"+i).value);
+
+        if(!isNaN(x) && !isNaN(y)){
+            points.push({x,y});
+        }
+    }
+
+    if(points.length < 2) return;
+
+    points.sort((a,b)=>a.x-b.x);
+
+    const canvas = document.getElementById("chartCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    let minX = Math.min(...points.map(p=>p.x));
+    let maxX = Math.max(...points.map(p=>p.x));
+
+    let minY = Math.min(...points.map(p=>p.y));
+    let maxY = Math.max(...points.map(p=>p.y));
+
+    let pad = 40;
+
+    function sx(x){
+        return pad + (x-minX)*(canvas.width-2*pad)/(maxX-minX || 1);
+    }
+
+    function sy(y){
+        return canvas.height-pad -
+        (y-minY)*(canvas.height-2*pad)/(maxY-minY || 1);
+    }
+
+    ctx.beginPath();
+
+    for(let i=0;i<points.length;i++){
+
+        let x = sx(points[i].x);
+        let y = sy(points[i].y);
+
+        if(i===0)
+            ctx.moveTo(x,y);
+        else
+            ctx.lineTo(x,y);
+    }
+
+    ctx.stroke();
+
+    for(let p of points){
+
+        let x = sx(p.x);
+        let y = sy(p.y);
+
+        ctx.beginPath();
+        ctx.arc(x,y,4,0,Math.PI*2);
+        ctx.fill();
+
+        ctx.fillText(
+            `(${p.x},${p.y})`,
+            x+5,
+            y-5
+        );
+    }
     }
 </script>
 
