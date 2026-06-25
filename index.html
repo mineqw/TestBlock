@@ -61,18 +61,90 @@ body{
 h1{
     text-align:center;
 }
+
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+}
+
+th{
+    background:#2196F3;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:10000;
+}
+
+.popup-content{
+    background:white;
+    width:80%;
+    max-width:900px;
+
+    max-height:80vh;
+    overflow-y:auto;
+
+    margin:50px auto;
+    padding:20px;
+    border-radius:12px;
+}
+
+.close{
+    float:left;
+    font-size:28px;
+    cursor:pointer;
+}
+
+#helpBtn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    z-index:9999;
+
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+
+    background:#4CAF50;
+    color:white;
+
+    font-size:16px;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
 
 <!-- صفحه اصلی -->
+<button id="helpBtn" onclick="openHelp()">
+     ❓ Help
+</button>
 <div id="home" class="page active">
     <h1>Main Menu</h1>
 
     <div class="grid">
-        <button class="btn" onclick="showPage(1)">دکمه 1</button>
+        <button class="btn" onclick="showPage(1)">Sum</button>
         <button class="btn" onclick="showPage(2)">دکمه 2</button>
-        <button class="btn" onclick="showPage(3)">دکمه 3</button>
+        <button class="btn" onclick="showPage(3)">Power</button>
 
         <button class="btn" onclick="showPage(4)">دکمه 4</button>
         <button class="btn" onclick="showPage(5)">دکمه 5</button>
@@ -91,10 +163,9 @@ h1{
 <!-- صفحات -->
 <div id="page1" class="page">
     <h1>صفحه 1</h1>
-    <input type="number" id="sum1" placeholder="عدد اول">
-    <input type="number" id="sum2" placeholder="عدد دوم">
+    <input type="number" id="sum1" placeholder="عدد اول" oninput="doSum()">
+    <input type="number" id="sum2" placeholder="عدد دوم" oninput="doSum()">
     <br><br>
-    <button onclick="doSum()">محاسبه</button>
     <p id="sumResult"></p>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
@@ -132,8 +203,8 @@ h1{
 </div>
 
 <div id="page5" class="page">
-    <h1>صفحه 5</h1>
-    <p>محتوای صفحه 5</p>
+    <h1>صفحه 4</h1>
+    <p>محتوای صفحه 4</p>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
 
@@ -202,8 +273,8 @@ function goHome(){
         .classList.add('active');
 }
 function doSum(){
-    let a = Number(document.getElementById("sum1").value);
-    let b = Number(document.getElementById("sum2").value);
+    let a = Number(document.getElementById("sum1").value || 0);
+    let b = Number(document.getElementById("sum2").value || 0);
 
     document.getElementById("sumResult").innerText =
         "نتیجه: " + (a + b);
@@ -224,7 +295,69 @@ function doPow(){
     document.getElementById("powResult").innerText =
         "نتیجه: " + (a ** b);
 }
+
+
+function openHelp(){
+    document.getElementById("helpPopup").style.display = "block";
+}
+
+function closeHelp(){
+    document.getElementById("helpPopup").style.display = "none";
+}
+
+window.onclick = function(event){
+
+    let popup = document.getElementById("helpPopup");
+
+    if(event.target == popup){
+        popup.style.display = "none";
+    }
+}
+
 </script>
+
+<div id="helpPopup" class="popup">
+
+    <div class="popup-content">
+
+        <span class="close" onclick="closeHelp()">&times;</span>
+
+        <h2>راهنما</h2>
+
+        <p>
+            به نرم‌افزار محاسبات فرآوری مواد معدنی خوش آمدید.
+        </p>
+
+        <p>
+            از دکمه‌های موجود برای انجام محاسبات عیار، بازیابی،
+            بالانس جرمی، درصد جامد، مصرف آب، مصرف انرژی
+            و سایر محاسبات مهندسی استفاده نمایید.
+        </p>
+<h3>فهرست ابزارهای نرم‌افزار</h3>
+<table border="1" style="width:100%;border-collapse:collapse;text-align:center;">
+        <tr>
+            <th>دکمه</th>
+            <th>عنوان</th>
+            <th>کاربرد</th>
+        </tr>
+
+        <tr><td>1</td><td>محاسبه عیار خوراک</td><td>محاسبه عیار متوسط چند نمونه</td></tr>
+        <tr><td>2</td><td>بازیابی فلز (%)</td><td>Recovery</td></tr>
+        <tr><td>3</td><td>نسبت پرعیارسازی</td><td>Enrichment Ratio</td></tr>
+        <tr><td>4</td><td>بالانس جرمی</td><td>Feed-Conc-Tail</td></tr>
+        <tr><td>5</td><td>درصد جامد پالپ</td><td>%Solids</td></tr>
+        <tr><td>6</td><td>رقیق‌سازی پالپ</td><td>محاسبه آب مورد نیاز</td></tr>
+        <tr><td>7</td><td>تناژ خشک/تر</td><td>تبدیل Wet ↔ Dry</td></tr>
+        <tr><td>8</td><td>مصرف آب</td><td>m³/h و m³/t</td></tr>
+        <tr><td>9</td><td>مصرف انرژی</td><td>kWh/t</td></tr>
+        <tr><td>10</td><td>تبدیل واحدها</td><td>تن، کیلوگرم، ppm، g/t، %</td></tr>
+        <tr><td>11</td><td>محاسبات آسیاکنی</td><td>P80، F80، Reduction Ratio</td></tr>
+        <tr><td>12</td><td>گزارش سریع</td><td>خروجی PDF یا Excel از نتایج</td></tr>
+    </table>
+
+    </div>
+
+</div>
 
 </body>
 </html>
