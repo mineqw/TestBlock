@@ -215,7 +215,9 @@ tr:nth-child(even){
 <br><br>
 
 <h3 id="interpResult">Y = ؟</h3>
+<input type="number" id="y3input" placeholder="Y مورد نظر" oninput="interpolateY()">
 
+<h3 id="interpXResult">X = ؟</h3>
 <button class="back" onclick="goHome()">بازگشت</button>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
@@ -352,6 +354,27 @@ function interpolate(){
     document.getElementById("interpResult").innerText =
     "Y = " + y3.toFixed(4);
 }
+    function interpolateY(){
+
+    let x1 = Number(document.getElementById("x1").value);
+    let y1 = Number(document.getElementById("y1").value);
+
+    let x2 = Number(document.getElementById("x2").value);
+    let y2 = Number(document.getElementById("y2").value);
+
+    let y3 = Number(document.getElementById("y3input").value);
+
+    if(y1 == y2){
+        document.getElementById("interpXResult").innerText =
+        "Y1 و Y2 نباید برابر باشند";
+        return;
+    }
+
+    let x3 = x1 + ((y3 - y1) * (x2 - x1)) / (y2 - y1);
+
+    document.getElementById("interpXResult").innerText =
+    "X = " + x3.toFixed(4);
+    }
 </script>
 
 <div id="helpPopup" class="popup">
