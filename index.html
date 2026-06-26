@@ -143,15 +143,15 @@ tr:nth-child(even){
 
     <div class="grid">
         <button class="btn" onclick="showPage(1)">Sum</button>
-        <button class="btn" onclick="showPage(2)">دکمه 2</button>
+        <button class="btn" onclick="showPage(2)">Multiply</button>
         <button class="btn" onclick="showPage(3)">Power</button>
 
-        <button class="btn" onclick="showPage(4)">دکمه 4</button>
+        <button class="btn" onclick="showPage(4)">Interpolation</button>
         <button class="btn" onclick="showPage(5)">دکمه 5</button>
-        <button class="btn" onclick="showPage(6)">دکمه 6</button>
+        <button class="btn" onclick="showPage(6)">Chart</button>
 
         <button class="btn" onclick="showPage(7)">دکمه 7</button>
-        <button class="btn" onclick="showPage(8)">دکمه 8</button>
+        <button class="btn" onclick="showPage(8)">Login</button>
         <button class="btn" onclick="showPage(9)">دکمه 9</button>
 
         <button class="btn" onclick="showPage(10)">دکمه 10</button>
@@ -267,7 +267,25 @@ style="border:1px solid #ccc;background:white;"></canvas>
 
 <div id="page8" class="page">
     <h1>صفحه 8</h1>
-    <p>محتوای صفحه 8</p>
+    <div id="page8" class="page">
+
+    <h1>ورود</h1>
+
+    <input type="text" id="username" placeholder="نام کاربری">
+
+    <br><br>
+
+    <input type="password" id="password" placeholder="رمز عبور">
+
+    <br><br>
+
+    <button onclick="login()">ورود</button>
+
+    <p id="loginMsg"></p>
+
+    <button class="back" onclick="goHome()">بازگشت</button>
+
+</div>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
 
@@ -294,7 +312,15 @@ style="border:1px solid #ccc;background:white;"></canvas>
     <p>محتوای صفحه 12</p>
     <button class="back" onclick="goHome()">بازگشت</button>
 </div>
+<div id="page13" class="page">
 
+    <h1 style="color:green;">
+        ✅ با موفقیت وارد شدی
+    </h1>
+
+    <button class="back" onclick="goHome()">بازگشت</button>
+
+</div>
 <script>
 function showPage(pageNumber){
 
@@ -471,6 +497,23 @@ function interpolate(){
         );
     }
     }
+    function login(){
+
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if(user=="1" && pass=="1"){
+
+        showPage(13);
+
+    }else{
+
+        document.getElementById("loginMsg").innerText =
+        "❌ نام کاربری یا رمز عبور اشتباه است";
+
+    }
+
+}
 </script>
 
 <div id="helpPopup" class="popup">
